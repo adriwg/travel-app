@@ -1,0 +1,27 @@
+
+
+.jumbotron {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+
+.form-group {
+    align-items: start;
+    display: flex;
+}
+
+h2 {
+    font-size: 1.25rem;
+}
+
+#hotels {
+    justify-content: space-evenly;
+}
+
+.row {
+    margin-bottom: 10px;
+}
+
+#recent-search {
+    margin-bottom: 3rem;
+}
