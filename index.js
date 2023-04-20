@@ -36,7 +36,6 @@ function getDestInfo() {
 }
 
 
-
 function getHotels(desInfo) {
     console.log("desInfo", desInfo);
     var queryParams_hotels = {
