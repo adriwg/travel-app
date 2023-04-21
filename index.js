@@ -13,7 +13,7 @@ const settings = {
 	"crossDomain": true,
 	"method": "GET",
 	"headers": {
-		"X-RapidAPI-Key": "b9ecd272f1mshf60584f0c72b623p1c55a0jsn6053571d69cf",
+		"X-RapidAPI-Key": "3ba3d3f340msh0310df6d354c212p1fbeacjsne80795a396e8",
 		"X-RapidAPI-Host": "booking-com.p.rapidapi.com"
 	}
 };
@@ -75,17 +75,18 @@ function getHotels(desInfo) {
 function displayHotels() {
     var hotel_list = "";
     for (var i = 0; i < hotels.length; i++) {
-        hotel_list += '<div class="card col-3">';
-        hotel_list += '<img src="'+hotels[i].hotel_image+'" class="card-img-top" alt="image of '+hotels[i].hotel_name+'">';
+        hotel_list += '<div class="card-container col-lg-4 col-md-6 col-sm-12">';
+        hotel_list += '<div class="card">';
+        hotel_list += '<img src="'+hotels[i].hotel_image+'" class="card-img-top" alt="image of '+hotels[i].hotel_name+'" class="card-img-top">';
+        hotel_list += '<div class="ratings">'+hotels[i]. review_score+'</div>';
         hotel_list += '<div class="card-body">';
-        hotel_list += '<h5 class="card-title">'+hotels[i].hotel_name+'</h5>';
-        hotel_list += '<p class="card-text">'+hotels[i].address+'</p>';
-        hotel_list += '<p class="card-text">'+hotels[i]. review_score+'</p>';
+        hotel_list += '<div class="card-title">'+hotels[i].hotel_name+'</div>';
+        hotel_list += '<p class="card-text"><i class="fa-sharp fa-solid fa-location-dot location"></i>  '+hotels[i].address+'</p>';
         hotel_list += '</div>';
         hotel_list += '</div>';
-        console.log(hotel_list);
+        hotel_list += '</div>';
     }
-    $("#hotels").html(hotel_list);
+    $("#hotels").append(hotel_list);
 }
 
 
