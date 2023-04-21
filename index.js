@@ -72,6 +72,7 @@ function getHotels(desInfo) {
     
 }
 
+//Display hotels
 function displayHotels() {
     var hotel_list = "";
     for (var i = 0; i < hotels.length; i++) {
