@@ -1,4 +1,9 @@
-
+:root {
+    --card_bdr_radius: 15px;
+    --rating_bg_color: #f1a52a;
+    --hotel_title_color: #2b3d69;
+    --location_color: #3761c9;
+}
 
 .jumbotron {
     padding-top: 10px !important;
@@ -14,9 +19,76 @@ h2 {
     font-size: 1.25rem;
 }
 
-#hotels {
-    justify-content: space-evenly;
+/*** Hotels section ***/
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    text-decoration: none;
+    color: #333;
 }
+
+.card {
+    position: relative;
+    width: 18rem;
+    border-radius: var(--card_bdr_radius);
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    cursor: pointer;
+    -webkit-box-shadow: 4px 3px 14px 2px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow:  4px 3px 14px 2px rgba(50, 50, 50, 0.5);
+    box-shadow: 4px 3px 14px 2px rgba(50, 50, 50, 0.5);
+}
+
+.card-body {
+    position: relative;
+    height: 250px;
+}
+
+.card-img, .card-img-top {
+    border-top-left-radius: var(--card_bdr_radius);
+    border-top-right-radius: var(--card_bdr_radius);
+    height: 200px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--hotel_title_color);
+}
+
+.card-text {
+    line-height: 20px;
+}
+
+.ratings {
+    position:absolute;
+    top: 140px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: var(--rating_bg_color);
+    border: 4px solid #FFF;
+    text-align: center;
+    color: #FFF;
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.location {
+    color: var( --location_color);
+}
+
 
 .row {
     margin-bottom: 10px;
