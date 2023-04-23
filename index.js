@@ -1,4 +1,4 @@
-var des = "Birmingham";
+var des = "New York";
 var arrival_date = "2023-04-22";
 var departure_date = "2023-04-25";
 var hotels = [];
@@ -6,7 +6,7 @@ var hotel_images = [];
 var searched_cities = [];
 var baseURL_desInfo = "https://booking-com.p.rapidapi.com/v1/hotels/locations?";
 var baseURL_hotels = "https://booking-com.p.rapidapi.com/v1/hotels/search?";
-var base_hotelPhoto = "https://apidojo-booking-v1.p.rapidapi.com/properties/get-hotel-photos?";
+var baseURL_description = "https://booking-com.p.rapidapi.com/v1/hotels/description?";
 
 const settings = {
 	"async": true,
@@ -61,9 +61,11 @@ function getHotels(desInfo) {
                 address:response.result[i].address,
                 hotel_id : response.result[i].hotel_id,
                 hotel_image: response.result[i].max_photo_url,
+                distance: response.result[i].distances[0].text,
                 review_score : response.result[i].review_score,
-                gross_price: response.result[i].gross_price,
-                currency: response.result[i].currency
+                gross_price: response.result[i].composite_price_breakdown.product_price_breakdowns[0].gross_amount_per_night.value,
+                currency: response.result[i].price_breakdown.currency,
+                desc: response.result[i].unit_configuration_label
             };
             hotels.push(hotel);
         }
@@ -76,19 +78,60 @@ function getHotels(desInfo) {
 function displayHotels() {
     var hotel_list = "";
     for (var i = 0; i < hotels.length; i++) {
+        var d = hotels[i].distance.split("•");
+        var hotel_distance = d[1];
         hotel_list += '<div class="card-container col-lg-4 col-md-6 col-sm-12">';
-        hotel_list += '<div class="card">';
-        hotel_list += '<img src="'+hotels[i].hotel_image+'" class="card-img-top" alt="image of '+hotels[i].hotel_name+'" class="card-img-top">';
-        hotel_list += '<div class="ratings">'+hotels[i]. review_score+'</div>';
+        hotel_list += '<div class="card" onclick="getHotelDesc('+i+')">';
+        hotel_list += '<img src="'+hotels[i].hotel_image+'" class="card-img-top" alt="image of '+hotels[i].hotel_name+'">';
+        hotel_list += '<div class="ratings">'+hotels[i].review_score+'</div>';
         hotel_list += '<div class="card-body">';
         hotel_list += '<div class="card-title">'+hotels[i].hotel_name+'</div>';
-        hotel_list += '<p class="card-text"><i class="fa-sharp fa-solid fa-location-dot location"></i>  '+hotels[i].address+'</p>';
+        hotel_list += '<p class="card-text"><i class="fa-sharp fa-solid fa-location-dot icn_bullet"></i><span>'+hotels[i].address+'</span></p>';
+        hotel_list += '<p class="card-text"><i class="fa-solid fa-diagram-project icn_bullet"></i><span>'+hotel_distance+'</span></p>';
+        hotel_list += '<div class="price"><span class="currency">'+hotels[i].currency+'</span><span class="g_price">'+hotels[i].gross_price.toFixed(0)+'</span></div>';
         hotel_list += '</div>';
         hotel_list += '</div>';
         hotel_list += '</div>';
     }
+    displayCityName();
     $("#hotels").append(hotel_list);
 }
+
+//Display ciity name
+function displayCityName() {
+    $("#city_name").text(des);
+}
+
+// Hotel details modal
+function popup_hotel_details(hotel_index, desc) {
+    var d = hotels[hotel_index].distance.split("•");
+    var hotel_distance = d[1];
+    $("#modal_hotel").modal("show");
+    $("#hotel_name").text(hotels[hotel_index].hotel_name);
+    $("#ratings_modal").text(hotels[hotel_index].review_score);
+    $("#hotel_image").html('<img src="'+hotels[hotel_index].hotel_image+'" alt="image of '+hotels[hotel_index].hotel_name+'">');
+    $("#address").text(hotels[hotel_index].address);
+    $("#distance").text(hotel_distance);
+    $("#hotel_desc").text(desc);
+    $("#currency").text(hotels[hotel_index].currency);
+    $("#g_price").text(hotels[hotel_index].gross_price.toFixed(0));
+}
+
+//Get description of the hotel from API
+function getHotelDesc(hotel_index) {
+    var queryParams_description = {
+        hotel_id: hotels[hotel_index].hotel_id,
+        locale:"en-gb"
+    };
+    settings.url = baseURL_description + $.param(queryParams_description);
+    $.ajax(settings).done(function (response) {
+        console.log(response.description);
+        popup_hotel_details(hotel_index, response.description);
+    });
+}
+
+
+
 
 
 
