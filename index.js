@@ -1,8 +1,5 @@
-var des = "New York";
-var arrival_date = "2023-05-15";
-var departure_date = "2023-05-25";
+var des = "";
 var hotels = [];
-var hotel_images = [];
 var searched_cities = [];
 var baseURL_desInfo = "https://booking-com.p.rapidapi.com/v1/hotels/locations?";
 var baseURL_hotels = "https://booking-com.p.rapidapi.com/v1/hotels/search?";
@@ -19,7 +16,12 @@ const settings = {
 	}
 };
 
-getDestInfo();
+//Search hotels
+function searchHotel(event) {
+    event.preventDefault();
+    des = $("#city-name").val().trim();
+    getDestInfo();
+}
 
 //Get destination info
 function getDestInfo() {
@@ -55,6 +57,7 @@ function getHotels(desInfo) {
     queryParams_hotels.dest_type = desInfo.dest_type;
     settings.url = baseURL_hotels + $.param(queryParams_hotels);
     console.log(settings.url);
+    hotels = [];
     $.ajax(settings).done(function (response) {
         for (var i = 0; i < 9; i++) {// get the first 9 hotels info
             var hotel = {
@@ -84,7 +87,11 @@ function displayHotels() {
         hotel_list += '<div class="card-container col-lg-4 col-md-6 col-sm-12">';
         hotel_list += '<div class="card" onclick="getHotelDesc('+i+')">';
         hotel_list += '<img src="'+hotels[i].hotel_image+'" class="card-img-top" alt="image of '+hotels[i].hotel_name+'">';
-        hotel_list += '<div class="ratings">'+hotels[i].review_score+'</div>';
+        if(hotels[i].review_score==null){
+            hotel_list += '<div class="ratings">5.5</div>';
+        }else{
+            hotel_list += '<div class="ratings">'+hotels[i].review_score+'</div>';
+        }
         hotel_list += '<div class="card-body">';
         hotel_list += '<div class="card-title">'+hotels[i].hotel_name+'</div>';
         hotel_list += '<p class="card-text"><i class="fa-sharp fa-solid fa-location-dot icn_bullet"></i><span>'+hotels[i].address+'</span></p>';
@@ -95,7 +102,7 @@ function displayHotels() {
         hotel_list += '</div>';
     }
     displayCityName();
-    $("#hotels").append(hotel_list);
+    $("#hotels").html(hotel_list);
 }
 
 //Display ciity name
@@ -109,7 +116,11 @@ function popup_hotel_details(hotel_index, desc) {
     var hotel_distance = d[1];
     $("#modal_hotel").modal("show");
     $("#hotel_name").text(hotels[hotel_index].hotel_name);
-    $("#ratings_modal").text(hotels[hotel_index].review_score);
+    if(hotels[hotel_index].review_score==null){
+        $("#ratings_modal").text("5.5");
+    }else{
+        $("#ratings_modal").text(hotels[hotel_index].review_score);
+    }
     $("#hotel_image").html('<img src="'+hotels[hotel_index].hotel_image+'" alt="image of '+hotels[hotel_index].hotel_name+'">');
     $("#address").text(hotels[hotel_index].address);
     $("#distance").text(hotel_distance);
