@@ -11,7 +11,7 @@ const settings = {
 	"method": "GET",
 	"headers": {
         'content-type': 'application/octet-stream',
-		"X-RapidAPI-Key": "3ba3d3f340msh0310df6d354c212p1fbeacjsne80795a396e8",
+		"X-RapidAPI-Key": "ccdcd724a8msh75b86de5a1b83f5p14d1ddjsn3fdfe60e540c",
 		"X-RapidAPI-Host": "booking-com.p.rapidapi.com"
 	}
 };
@@ -37,6 +37,8 @@ function getDestInfo() {
             "longitude": response[0].longitude,
             "latitude": response[0].latitude
         };
+        console.log("response", response);
+        console.log("destInfo", destInfo);
         getHotels(destInfo);
     });
 }
@@ -65,8 +67,9 @@ function getHotels(desInfo) {
                 address:response.result[i].address,
                 hotel_id : response.result[i].hotel_id,
                 hotel_image: response.result[i].max_photo_url,
-                distance: response.result[i].distances[0].text,
+                distance: response.result[i].distance_to_cc,
                 review_score : response.result[i].review_score,
+                stars: response.result[i].class,
                 gross_price: response.result[i].composite_price_breakdown.product_price_breakdowns[0].gross_amount_per_night.value,
                 currency: response.result[i].price_breakdown.currency,
                 desc: response.result[i].unit_configuration_label
@@ -82,11 +85,12 @@ function getHotels(desInfo) {
 function displayHotels() {
     var hotel_list = "";
     for (var i = 0; i < hotels.length; i++) {
-        var d = hotels[i].distance.split("•");
-        var hotel_distance = d[1];
         hotel_list += '<div class="card-container col-lg-4 col-md-6 col-sm-12">';
         hotel_list += '<div class="card" onclick="getHotelDesc('+i+')">';
         hotel_list += '<img src="'+hotels[i].hotel_image+'" class="card-img-top" alt="image of '+hotels[i].hotel_name+'">';
+        hotel_list += '<div class="stars">';
+        hotel_list += displayStars(hotels[i].stars);
+        hotel_list += '</div>';
         if(hotels[i].review_score==null){
             hotel_list += '<div class="ratings">5.5</div>';
         }else{
@@ -95,7 +99,7 @@ function displayHotels() {
         hotel_list += '<div class="card-body">';
         hotel_list += '<div class="card-title">'+hotels[i].hotel_name+'</div>';
         hotel_list += '<p class="card-text"><i class="fa-sharp fa-solid fa-location-dot icn_bullet"></i><span>'+hotels[i].address+'</span></p>';
-        hotel_list += '<p class="card-text"><i class="fa-solid fa-diagram-project icn_bullet"></i><span>'+hotel_distance+'</span></p>';
+        hotel_list += '<p class="card-text"><i class="fa-solid fa-diagram-project icn_bullet"></i><span>'+hotels[i].distance+' km from center</span></p>';
         hotel_list += '<div class="price"><span class="currency">'+hotels[i].currency+'</span><span class="g_price">'+hotels[i].gross_price.toFixed(0)+'</span></div>';
         hotel_list += '</div>';
         hotel_list += '</div>';
@@ -112,10 +116,9 @@ function displayCityName() {
 
 // Hotel details modal
 function popup_hotel_details(hotel_index, desc) {
-    var d = hotels[hotel_index].distance.split("•");
-    var hotel_distance = d[1];
     $("#modal_hotel").modal("show");
     $("#hotel_name").text(hotels[hotel_index].hotel_name);
+    $("#stars_modal").html(displayStars(hotels[hotel_index].stars));
     if(hotels[hotel_index].review_score==null){
         $("#ratings_modal").text("5.5");
     }else{
@@ -123,7 +126,7 @@ function popup_hotel_details(hotel_index, desc) {
     }
     $("#hotel_image").html('<img src="'+hotels[hotel_index].hotel_image+'" alt="image of '+hotels[hotel_index].hotel_name+'">');
     $("#address").text(hotels[hotel_index].address);
-    $("#distance").text(hotel_distance);
+    $("#distance").text(hotels[hotel_index].distance+ " km from center");
     $("#hotel_desc").text(desc);
     $("#currency").text(hotels[hotel_index].currency);
     $("#g_price").text(hotels[hotel_index].gross_price.toFixed(0));
@@ -140,6 +143,15 @@ function getHotelDesc(hotel_index) {
         console.log(response.description);
         popup_hotel_details(hotel_index, response.description);
     });
+}
+
+//Display stars
+function displayStars(stars) {
+    var star_list = "";
+    for (var i = 0; i < stars; i++) {
+        star_list += '<i class="fa-solid fa-star star"></i>';
+    }
+    return star_list;
 }
 
 

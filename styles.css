@@ -105,6 +105,24 @@ h2 {
     right: 20px;
 }
 
+.stars {
+    position:absolute;
+    top: 160px;
+    left: 10px; 
+}
+
+#stars_modal {
+    left: 20px;
+    bottom: 20px;
+}
+
+.star {
+    display: inline-block;
+    margin-right: 4px;
+    color: var(--rating_bg_color);
+    text-shadow: 2px 2px 2px #000000;
+}
+
 .icn_bullet {
     color: var( --location_color);
     margin-top: 2px;
