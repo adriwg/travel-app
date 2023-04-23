@@ -15,7 +15,7 @@ body{
 
 .jumbotron {
     padding-top: 10px !important;
-    padding-bottom: 10px !important;
+    padding-bottom: 30px !important;
     background: url("images/london1crp2s.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -44,7 +44,10 @@ h1, h1+p, h1+p+p{
 h1+p {
     font-size: 1.5rem !important;
     letter-spacing: 1px;
+}
 
+h1+p+p {
+    letter-spacing: 1px;
 }
 
 h2 {

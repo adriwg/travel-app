@@ -6,6 +6,11 @@ $(function() {
       opens: "left",
       applyClass: "btn-primary",
       cancelClass: "btn-default",
+      minDate: moment(),
+      endDate: moment().add(5, 'day'),
+      locale: { 
+        format: 'DD/MM/YYYY'
+    }
       
     }, function(start, end, label) {
       //console.log("A new date range was chosen: " + start.format('DD/MM/YYYY') + ' to ' + end.format('DD/MM/YYYY'));
