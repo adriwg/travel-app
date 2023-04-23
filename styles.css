@@ -3,20 +3,68 @@
     --rating_bg_color: #f1a52a;
     --hotel_title_color: #29417c;
     --location_color: #3761c9;
+    --dark-grey: #5e6a76; 
+    --app_name_color: #e7eaed; 
+    --backgr_color: #cbd8dc;
 }
+
+body{
+    background-color: var(--backgr_color);
+}
+
 
 .jumbotron {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
-  }
+    background: url("images/london1crp2s.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: center;
+    background-color: var(--dark-grey);
+    background-blend-mode: multiply;
+}
+
 
 .form-group {
     align-items: start;
     display: flex;
 }
 
+
+h1 {
+    font-size: 3.5rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 4px;
+}
+
+h1, h1+p, h1+p+p{
+    color: var(--app_name_color);
+}
+
+h1+p {
+    font-size: 1.5rem !important;
+    letter-spacing: 1px;
+
+}
+
 h2 {
     font-size: 1.25rem;
+}
+
+.btn-primary {
+    background-color: var(--rating_bg_color);
+    border: none;
+}
+
+#recent-search{
+    background-color: var(--app_name_color);
+    border-radius: var(--card_bdr_radius);
+    margin-bottom: 2rem;
+}
+
+#cities-nearby {
+    background-color: var(--app_name_color);
+    border-radius: var(--card_bdr_radius);
 }
 
 #city_name {
@@ -269,6 +317,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#16213b', end
     margin-bottom: 10px;
 }
 
-#recent-search {
-    margin-bottom: 3rem;
+#recent-search, #cities-nearby {
+    padding: 2rem 1rem 3rem 1rem;
 }

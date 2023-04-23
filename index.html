@@ -29,14 +29,23 @@
   <body>
     <header class="jumbotron jumbotron-fluid">
       <div class="container text-center">
-        <h1 class="display-4">Find Hotel</h1>
+        <h1 class="display-4">Find a Hotel</h1>
         <p class="lead">Where you would like to stay?</p>
+        <p class="lead">Please enter city/town name and your travel dates:</p>
 
         <form class="container">
           <div class="row">
             <div class="form-group col-6">
+                
               <label for="city_name"></label>
+
+            <!-- <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">City</div>
+              </div> -->
+
               <input type="text" class="form-control" id="city-name">
+            <!-- </div> -->
             </div>
             <!-- date picker -->
             <div class="col-6 input-group input-daterange">
@@ -49,7 +58,7 @@
       </div>
     </header>
 
-    <div class="container">
+    <div class="container" id="main-container">
       <div class="row">
         <div class="col-3">
           <!-- 5 recent searches saved in local storage. 
