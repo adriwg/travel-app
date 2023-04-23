@@ -1,6 +1,6 @@
 var des = "New York";
-var arrival_date = "2023-04-22";
-var departure_date = "2023-04-25";
+var arrival_date = "2023-05-15";
+var departure_date = "2023-05-25";
 var hotels = [];
 var hotel_images = [];
 var searched_cities = [];
@@ -13,6 +13,7 @@ const settings = {
 	"crossDomain": true,
 	"method": "GET",
 	"headers": {
+        'content-type': 'application/octet-stream',
 		"X-RapidAPI-Key": "3ba3d3f340msh0310df6d354c212p1fbeacjsne80795a396e8",
 		"X-RapidAPI-Host": "booking-com.p.rapidapi.com"
 	}
