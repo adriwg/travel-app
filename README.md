@@ -12,11 +12,11 @@ API's used for this project:
   
 The landing page shows default city London and default dates +5 from today:
 
-![default landing page](images/landing.JPG)
+![default landing page](images/landing.jpg)
 
 User needs to enter his desired destination city and travel dates, click search button and the hotels are displayed in desired destination: 
 
-![another destination](images/other_city.JPG)
+![another destination](images/other_city.jpg)
 
 While data is retrieved from database, the spinner is displayed.
 
