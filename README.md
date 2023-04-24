@@ -20,6 +20,7 @@ Recent searches are saved to the left side panel, in clickable buttons.  User ca
 
 Single page app is responsive. on the smaller screens fewer hotels are displayed in one line and recent search is moved down.
 Two hotel cards on tablet screen: 
+
 ![tablet screen](images/tabletScreen.jpg)
 
 One hotel card on mobile screen:
