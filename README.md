@@ -18,11 +18,14 @@ While data is retrieved from database, the spinner is displayed:
 
 Recent searches are saved to the left side panel, in clickable buttons.  User can press the button and retrieve the information about hotels again.
 
-Single page app is responsive. on the smaller screens fewer hotels are displayed in one line and recent search is moved down.
-Two hotel cards on tablet screen: 
+Single page app is responsive. On the smaller screens fewer hotels are displayed per horizontal line and recent search is moved down the page.
+
+Two hotel cards per horizontal line are displayed on tablet screen: 
+
 ![tablet screen](images/tabletScreen.jpg)
 
-One hotel card on mobile screen:
+One hotel card per horizontal line is displayed on mobile screen:
+
 ![mobile screen](images/mobileScreen.jpg)
 
 
