@@ -23,6 +23,7 @@ Two hotel cards on tablet screen:
 ![tablet screen](images/tabletScreen.jpg)
 
 One hotel card on mobile screen:
+
 ![mobile screen](images/mobileScreen.jpg)
 
 
