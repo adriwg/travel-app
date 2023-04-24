@@ -1,9 +1,17 @@
 var des = "";
 var hotels = [];
 var searched_cities = [];
+
+// Base url for  booking.com api
 var baseURL_desInfo = "https://booking-com.p.rapidapi.com/v1/hotels/locations?";
 var baseURL_hotels = "https://booking-com.p.rapidapi.com/v1/hotels/search?";
 var baseURL_description = "https://booking-com.p.rapidapi.com/v1/hotels/description?";
+
+// Base url for accuWeather api
+var baseURL_citySearch = "http://dataservice.accuweather.com/locations/v1/cities/search?";
+var baseURL_currentWeather = "http://dataservice.accuweather.com/currentconditions/v1/";
+var apiKey_weather = "pCT63hS0FIm6KJ7Sfo8dGQIulm2tBhKA";
+
 
 const settings = {
 	"async": true,
@@ -24,6 +32,7 @@ $(document).ready(function () {
         des = $(this).attr("data-city");
         $("#city-name").val(des);
         getDestInfo();
+        getLocationKey();
     });
 
 });
@@ -33,6 +42,7 @@ function searchHotel(event) {
     event.preventDefault();
     des = $("#city-name").val().trim().toLowerCase();
     getDestInfo();
+    getLocationKey();
 }
 
 //Get destination info
@@ -180,7 +190,7 @@ function init() {
     departure_date = moment(default_endDate, 'DD/MM/YYYY').format("YYYY-MM-DD");
     $("#city-name").val(des);
     getDestInfo();
-
+    getLocationKey();
     // Get searched cities history from local storage if available
    if (localStorage.getItem("history") == null) {
        searched_cities = [];
@@ -212,4 +222,36 @@ function showLoadingSpinner() {
 // Remove loading spinner
 function removeLoadingSpinner() {
     $(".overlay").fadeOut().remove();
+}
+
+// Get location key for the searched city
+function getLocationKey() {
+    var queryParams = {
+        apikey: apiKey_weather,
+        q: des
+    };
+    var queryURL_city = baseURL_citySearch+$.param(queryParams);
+    $.ajax({
+        url: queryURL_city,
+        method: "GET"
+    }).then(function(response) {
+        getWeatherTemperature(response[0].Key);
+    });
+}
+
+//Get current weather temperature of the searched city
+function getWeatherTemperature(locKey){
+    var queryParams = {
+        apikey: apiKey_weather
+    };
+    var queryURL_currentWeather = baseURL_currentWeather+locKey+"?"+$.param(queryParams);
+    $.ajax({
+        url: queryURL_currentWeather,
+        method: "GET"
+    }).then(function(weatherInfo) {
+        var temp = weatherInfo[0].Temperature.Metric.Value;
+        var iconNum = weatherInfo[0].WeatherIcon;
+        $("#temp").text(temp+"°C");
+        $("#cond").html('<img src="images/weather_icons/w'+iconNum+'.png">');
+    });
 }
