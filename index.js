@@ -16,6 +16,8 @@ const settings = {
 	}
 };
 
+init();
+
 //Search hotels
 function searchHotel(event) {
     event.preventDefault();
@@ -55,6 +57,8 @@ function getHotels(desInfo) {
     };
     queryParams_hotels.checkin_date = arrival_date;
     queryParams_hotels.checkout_date = departure_date;
+    console.log("arrival_date:"+arrival_date);
+    console.log("departure_date:"+departure_date);
     queryParams_hotels.dest_id = desInfo.dest_id;
     queryParams_hotels.dest_type = desInfo.dest_type;
     settings.url = baseURL_hotels + $.param(queryParams_hotels);
@@ -153,6 +157,17 @@ function displayStars(stars) {
     }
     return star_list;
 }
+
+// Init
+function init() {
+    des = "Coventry";
+    arrival_date = moment(defaut_startDate, 'DD/MM/YYYY').format("YYYY-MM-DD");
+    departure_date = moment(default_endDate, 'DD/MM/YYYY').format("YYYY-MM-DD");
+    $("#city-name").val(des);
+    getDestInfo();
+}
+
+
 
 
 

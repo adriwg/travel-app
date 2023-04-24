@@ -1,7 +1,7 @@
 :root {
     --card_bdr_radius: 15px;
     --rating_bg_color: #f1a52a;
-    --hotel_title_color: #29417c;
+    --hotel_title_color: #1f315e;
     --location_color: #3761c9;
     --dark-grey: #5e6a76; 
     --app_name_color: #e7eaed; 
@@ -75,7 +75,7 @@ h2 {
     font-weight: 300;
     font-size: 32px;
     margin-bottom: 20px;
-    color: #616d8a;
+    color: #455272;
 }
 
 /*** Hotels section ***/
@@ -339,10 +339,29 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#16213b', end
     margin-bottom: 10px;
 }
 
+
+
 #recent-search, #cities-nearby {
     padding: 2rem 1rem 3rem 1rem;
 }
 
+/*** Recent serach  ***/
+#history {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#history button {
+    background-color: #898d92;
+    width: 100%;
+    margin-top: 10px;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+/*** Footer  ***/
 footer {
     margin-top: 30px;
     padding: 20px 30px 30px 30px !important;
