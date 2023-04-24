@@ -1,27 +1,53 @@
-# Travel app
-## Group project
+# Find a hotel app - group project
 
-### Technical requirements
+## Description
 
-* Use Bootstrap.
+We have created a "Find a hotel" app single page app. When a user wants to travel anywhere in the world, they can use this app to find out what hotels are available in the area.
+  
+The landing page shows default city London and available hotels, with default dates - starting today +5 days: 
 
-* Be deployed to GitHub Pages.
+![default landing page](images/landing.jpg)
 
-* Be interactive (i.e., accept and respond to user input).
+When user enters their desired destination city and travel dates, clicks search button, the hotels are displayed in desired destination: 
 
-* Use at least two [server-side APIs](https://coding-boot-camp.github.io/full-stack/apis/api-resources).
+![another destination](images/other_city.jpg)
 
-* Does not use alerts, confirms, or prompts (use modals).
+While data is retrieved from database, the spinner is displayed:
 
-* Use client-side storage to store persistent data.
+![spinner](images/spinnerScreen.jpg)
 
-* Be responsive.
+Recent searches are saved to the left side panel, in clickable buttons.  User can press the button and retrieve the information about hotels again.
 
-* Have a polished UI.
+Single page app is responsive. On the smaller screens fewer hotels are displayed per horizontal line and recent search is moved down the page.
 
-* Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.).
+Two hotel cards per horizontal line are displayed on tablet screen: 
 
-* Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
+![tablet screen](images/tabletScreen.jpg)
 
+One hotel card per horizontal line is displayed on mobile screen:
+
+![mobile screen](images/mobileScreen.jpg)
+
+
+
+
+## Languages/libraries/API's used
+
+- Javascript
+- jQuery
+- [Booking API](https://rapidapi.com/apidojo/api/booking)
+- [GeoDB Cities API](https://rapidapi.com/wirefreethought/api/geodb-cities) 
+- JavaScript [date range picker](https://www.daterangepicker.com/#:~:text=Originally%20created%20for%20reports%20at,like%20%22Last%2030%20Days%22.)
+- Bootstrap
+- HTML
+- CSS
+  
+## Installation
+
+There is no installation needed, please view deployed app [here](https://astarem.github.io/travel-app/)
+
+## Usage
+
+Please enter city/town name and choose travel dates, as shown in description section. 
 
 

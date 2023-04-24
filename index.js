@@ -62,6 +62,7 @@ function getDestInfo() {
         };
         getHotels(destInfo);
     });
+    
 }
 
 // Get hotels Info
