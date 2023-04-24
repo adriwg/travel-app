@@ -76,11 +76,30 @@ h2 {
     border-radius: var(--card_bdr_radius);
 }
 
+.title_bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.temp_wrapper{
+    margin-left: 30px;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 300;
+    color:#616d8a;
+}
+
+#temp,
+#cond {
+    display: inline-block;
+}
+
 #city_name {
     font-weight: 300;
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: #455272;
+    font-size: 40px;
+    color: #343e57;
     text-transform: capitalize;
 }
 
@@ -282,6 +301,7 @@ h2 {
 
 .modal-body {
     padding-top: 0;
+    margin-bottom: 20px;
 }
 
 #ratings_modal {
