@@ -1,27 +1,36 @@
-# Travel app
+# Find a hotel app
 ## Group project
 
-### Technical requirements
+## Description
 
-* Use Bootstrap.
+This is a group project.
+We have created a "Find a hotel" app. 
 
-* Be deployed to GitHub Pages.
+API's used for this project: 
+- [Booking api](https://rapidapi.com/apidojo/api/booking)
+- [GeoDB Cities](https://rapidapi.com/wirefreethought/api/geodb-cities)
+  
+The landing page shows default city London and default dates +5 from today:
 
-* Be interactive (i.e., accept and respond to user input).
+![default landing page](images/landing.JPG)
 
-* Use at least two [server-side APIs](https://coding-boot-camp.github.io/full-stack/apis/api-resources).
+User needs to enter his desired destination city and travel dates, click search button and the hotels are displayed in desired destination: 
 
-* Does not use alerts, confirms, or prompts (use modals).
+![another destination](images/other_city.JPG)
 
-* Use client-side storage to store persistent data.
+While data is retrieved from database, the spinner is displayed.
 
-* Be responsive.
+Recent searches are saved to the side panel, in clickable buttons.  User can press the button and retrieve the information about hotels again.
 
-* Have a polished UI.
 
-* Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.).
 
-* Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
 
+## Installation
+
+There is no installation needed, please view deployed app [here](https://astarem.github.io/travel-app/)
+
+## Usage
+
+Please enter city/town name and choose travel dates, as shown in description section. 
 
 
