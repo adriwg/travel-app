@@ -1,5 +1,5 @@
 # Find a hotel app
-## Group project
+Group project
 
 ## Description
 
