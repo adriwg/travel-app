@@ -61,6 +61,10 @@ h2 {
     border: none;
 }
 
+#city-name {
+    text-transform: capitalize;
+}
+
 #recent-search{
     background-color: var(--aside_color);
     border-radius: var(--card_bdr_radius);
@@ -77,6 +81,7 @@ h2 {
     font-size: 32px;
     margin-bottom: 20px;
     color: #455272;
+    text-transform: capitalize;
 }
 
 /*** Hotels section ***/
@@ -165,6 +170,7 @@ h2 {
 }
 
 #stars_modal {
+    position: absolute;
     left: 20px;
     bottom: 20px;
 }
@@ -218,15 +224,15 @@ h2 {
 /*** Modal ***/
 .modal-content {
     border-radius: 20px;
-    border:none;
-    background: rgba(22,33,59,1);
-background: -moz-linear-gradient(top, rgba(22,33,59,1) 0%, rgba(101,115,146,1) 16%, rgba(126,140,173,1) 21%, rgba(255,255,255,1) 46%, rgba(255,255,255,1) 100%);
-background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(22,33,59,1)), color-stop(16%, rgba(101,115,146,1)), color-stop(21%, rgba(126,140,173,1)), color-stop(46%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,1)));
-background: -webkit-linear-gradient(top, rgba(22,33,59,1) 0%, rgba(101,115,146,1) 16%, rgba(126,140,173,1) 21%, rgba(255,255,255,1) 46%, rgba(255,255,255,1) 100%);
-background: -o-linear-gradient(top, rgba(22,33,59,1) 0%, rgba(101,115,146,1) 16%, rgba(126,140,173,1) 21%, rgba(255,255,255,1) 46%, rgba(255,255,255,1) 100%);
-background: -ms-linear-gradient(top, rgba(22,33,59,1) 0%, rgba(101,115,146,1) 16%, rgba(126,140,173,1) 21%, rgba(255,255,255,1) 46%, rgba(255,255,255,1) 100%);
-background: linear-gradient(to bottom, rgba(22,33,59,1) 0%, rgba(101,115,146,1) 16%, rgba(126,140,173,1) 21%, rgba(255,255,255,1) 46%, rgba(255,255,255,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#16213b', endColorstr='#ffffff', GradientType=0 );
+    border: none;
+    background: rgba(22, 33, 59, 1);
+    background: -moz-linear-gradient(top, rgba(22, 33, 59, 1) 0%, rgba(101, 115, 146, 1) 16%, rgba(126, 140, 173, 1) 21%, rgba(255, 255, 255, 1) 46%, rgba(255, 255, 255, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(22, 33, 59, 1)), color-stop(16%, rgba(101, 115, 146, 1)), color-stop(21%, rgba(126, 140, 173, 1)), color-stop(46%, rgba(255, 255, 255, 1)), color-stop(100%, rgba(255, 255, 255, 1)));
+    background: -webkit-linear-gradient(top, rgba(22, 33, 59, 1) 0%, rgba(101, 115, 146, 1) 16%, rgba(126, 140, 173, 1) 21%, rgba(255, 255, 255, 1) 46%, rgba(255, 255, 255, 1) 100%);
+    background: -o-linear-gradient(top, rgba(22, 33, 59, 1) 0%, rgba(101, 115, 146, 1) 16%, rgba(126, 140, 173, 1) 21%, rgba(255, 255, 255, 1) 46%, rgba(255, 255, 255, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(22, 33, 59, 1) 0%, rgba(101, 115, 146, 1) 16%, rgba(126, 140, 173, 1) 21%, rgba(255, 255, 255, 1) 46%, rgba(255, 255, 255, 1) 100%);
+    background: linear-gradient(to bottom, rgba(22, 33, 59, 1) 0%, rgba(101, 115, 146, 1) 16%, rgba(126, 140, 173, 1) 21%, rgba(255, 255, 255, 1) 46%, rgba(255, 255, 255, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#16213b', endColorstr='#ffffff', GradientType=0);
 }
 
 #hotel_name {
@@ -341,12 +347,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#16213b', end
 }
 
 
-
 #recent-search, #cities-nearby {
     padding: 2rem 1rem 3rem 1rem;
 }
 
-/*** Recent serach  ***/
+/*** Recent search  ***/
 #history {
     display: flex;
     flex-direction: column;
@@ -355,12 +360,46 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#16213b', end
 }
 
 #history button {
-    background-color: #898d92;
+    background-color: #d4d9df;
     width: 100%;
     margin-top: 10px;
     text-transform: capitalize;
     text-align: center;
+    border-radius:30px;
+    border: none;
+    color: var (--hotel_title_color);
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
+
+#history button:hover {
+    background-color: #88929f;
+    color: #fff;
+}
+
+/*** Loading Spinner  ***/
+.overlay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-color:rgba(0,0,0,0.7);
+    z-index:1000;
+}
+
+.loading_spinner {
+    width: 60px;
+    height: 60px;
+    background: url("images/loading_spinner.gif") center center no-repeat;
+    background-size: cover;
+}
+
 
 /*** Footer  ***/
 footer {

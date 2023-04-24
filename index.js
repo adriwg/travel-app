@@ -16,17 +16,28 @@ const settings = {
 	}
 };
 
-init();
+$(document).ready(function () {
+    
+    init();
+
+    $("#history").on("click", "button", function () {
+        des = $(this).attr("data-city");
+        $("#city-name").val(des);
+        getDestInfo();
+    });
+
+});
 
 //Search hotels
 function searchHotel(event) {
     event.preventDefault();
-    des = $("#city-name").val().trim();
+    des = $("#city-name").val().trim().toLowerCase();
     getDestInfo();
 }
 
 //Get destination info
 function getDestInfo() {
+    showLoadingSpinner();
     var queryParams_desInfo = {
         name: des,
         locale: "en-gb"
@@ -39,8 +50,6 @@ function getDestInfo() {
             "longitude": response[0].longitude,
             "latitude": response[0].latitude
         };
-        console.log("response", response);
-        console.log("destInfo", destInfo);
         getHotels(destInfo);
     });
 }
@@ -57,12 +66,9 @@ function getHotels(desInfo) {
     };
     queryParams_hotels.checkin_date = arrival_date;
     queryParams_hotels.checkout_date = departure_date;
-    console.log("arrival_date:"+arrival_date);
-    console.log("departure_date:"+departure_date);
     queryParams_hotels.dest_id = desInfo.dest_id;
     queryParams_hotels.dest_type = desInfo.dest_type;
     settings.url = baseURL_hotels + $.param(queryParams_hotels);
-    console.log(settings.url);
     hotels = [];
     $.ajax(settings).done(function (response) {
         for (var i = 0; i < 9; i++) {// get the first 9 hotels info
@@ -81,8 +87,9 @@ function getHotels(desInfo) {
             hotels.push(hotel);
         }
         displayHotels();
+        
     });
-    
+
 }
 
 //Display hotels
@@ -111,6 +118,13 @@ function displayHotels() {
     }
     displayCityName();
     $("#hotels").html(hotel_list);
+    if (!searched_cities.includes(des)) {
+        des = des.toLowerCase();
+        searched_cities.push(des);
+        localStorage.setItem("history",JSON.stringify(searched_cities));
+        displaySearchHistory();
+    }
+    removeLoadingSpinner();
 }
 
 //Display ciity name
@@ -144,7 +158,6 @@ function getHotelDesc(hotel_index) {
     };
     settings.url = baseURL_description + $.param(queryParams_description);
     $.ajax(settings).done(function (response) {
-        console.log(response.description);
         popup_hotel_details(hotel_index, response.description);
     });
 }
@@ -160,18 +173,43 @@ function displayStars(stars) {
 
 // Init
 function init() {
-    des = "Coventry";
+    // Set dafault search city and  date range
+    des = "London";
+    des = des.toLowerCase();
     arrival_date = moment(defaut_startDate, 'DD/MM/YYYY').format("YYYY-MM-DD");
     departure_date = moment(default_endDate, 'DD/MM/YYYY').format("YYYY-MM-DD");
     $("#city-name").val(des);
     getDestInfo();
+
+    // Get searched cities history from local storage if available
+   if (localStorage.getItem("history") == null) {
+       searched_cities = [];
+   } else {
+       searched_cities = JSON.parse(localStorage.getItem("history"));
+       displaySearchHistory();
+   }
+}
+   
+//Display search history
+function displaySearchHistory() {
+    $("#history").empty(); // Clear the current displayed history
+    for (var i = 0; i < searched_cities.length; i++) {
+        var history ="<button class=\"btn\" data-city=\""+searched_cities[i]+"\">"+searched_cities[i]+"</button>";
+        $("#history").append(history);
+    }   
 }
 
+//Display loading spinner
+function showLoadingSpinner() {
+    var spinner ="";
+    spinner += '<div class="overlay">';
+    spinner += '<div class="loading_spinner"></div>';
+    spinner += '</div>';
+    $("body").append(spinner);
+    $(".overlay").fadeIn();
+}
 
-
-
-
-
-
-
-
+// Remove loading spinner
+function removeLoadingSpinner() {
+    $(".overlay").fadeOut().remove();
+}
