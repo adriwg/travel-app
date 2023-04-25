@@ -29,23 +29,21 @@
   <body>
     <header class="jumbotron jumbotron-fluid">
       <div class="container text-center">
-        <h1 class="display-4">Find a Hotel</h1>
-        <p class="lead">Where you would like to stay?</p>
-        <p class="lead">Please enter city/town name and your travel dates:</p>
-
-        <form class="container">
-          <div class="row">
+        <h1 class="display-4 appTitle">Find a Hotel</h1>
+        <form class="container" id="form_search">
+          <div class="row input_wrapper">
             <div class="form-group col-6">       
-              <label for="city_name"></label>
+              <label for="city_name">Where do you want to go?</label>
               <input type="text" class="form-control" id="city-name">
             </div>
-
+ 
             <!-- date picker -->
-            <div class="col-6 input-group input-daterange">
+            <div class="form-group col-6 input-daterange">
+              <label for="date-range-picker">Check-in and Check-out dates:</label>
               <input type="text" class="form-control" id="date-range-picker">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" onclick="searchHotel(event);">Search</button>
+          <button type="submit" class="btn btn-primary btn_submit" onclick="searchHotel(event);">Search</button>
         </form>
       </div>
     </header>

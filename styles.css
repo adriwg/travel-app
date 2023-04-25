@@ -24,12 +24,19 @@ body{
     background-position-y: center;
     background-color: var(--dark-grey);
     background-blend-mode: multiply;
+    opacity: 0.95;
+}
+
+.appTitle {
+    margin-bottom: 50px;
 }
 
 
 .form-group {
-    align-items: start;
     display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 
@@ -56,13 +63,34 @@ h2 {
     font-size: 1.25rem;
 }
 
-.btn-primary {
+.btn_submit,
+.btn_submit:visited,
+.btn_submit:focus,
+.btn_submit:active {
     background-color: var(--rating_bg_color);
+    width: 200px;
+    border-radius: 60px;
+    padding: 12px 20px;
     border: none;
+    text-shadow: 1px 1px 1px #000;
+    font-size: 16px;
+}
+
+.btn_submit:hover{
+    background-color: #da9526;
 }
 
 #city-name {
+    position: relative;
     text-transform: capitalize;
+}
+
+#city-name:before{
+        position: absolute;
+        font-family: 'FontAwesome';
+        top: 0;
+        left: 10px;
+        content: "\f005";
 }
 
 #recent-search{
@@ -364,6 +392,28 @@ h2 {
 
 .row {
     margin-bottom: 10px;
+}
+
+.input_wrapper {
+    justify-content: center;
+    align-items: center;
+}
+
+.input_wrapper label{
+    display: block;
+    color: #edf7ff;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    text-shadow: 2px 2px 2px #000;
+    font-size: 14px;
+}
+
+.input_wrapper input {
+    color: var(--location_color);
+    font-size: 16px;
+    padding: 22px 20px;
+    border-radius: 60px;
+
 }
 
 
