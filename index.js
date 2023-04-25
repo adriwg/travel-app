@@ -8,8 +8,8 @@ var baseURL_hotels = "https://booking-com.p.rapidapi.com/v1/hotels/search?";
 var baseURL_description = "https://booking-com.p.rapidapi.com/v1/hotels/description?";
 
 // Base url for accuWeather api
-var baseURL_citySearch = "http://dataservice.accuweather.com/locations/v1/cities/search?";
-var baseURL_currentWeather = "http://dataservice.accuweather.com/currentconditions/v1/";
+var baseURL_citySearch = "https://dataservice.accuweather.com/locations/v1/cities/search?";
+var baseURL_currentWeather = "https://dataservice.accuweather.com/currentconditions/v1/";
 var apiKey_weather = "pCT63hS0FIm6KJ7Sfo8dGQIulm2tBhKA";
 
 
