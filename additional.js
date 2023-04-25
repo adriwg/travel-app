@@ -1,12 +1,18 @@
 var des = "";
 var hotels = [];
 var searched_cities = [];
+var citiesLatitude;//a
+var citiesLongitude;//a
+
+// Base url for  booking.com api
 var baseURL_desInfo = "https://booking-com.p.rapidapi.com/v1/hotels/locations?";
 var baseURL_hotels = "https://booking-com.p.rapidapi.com/v1/hotels/search?";
 var baseURL_description = "https://booking-com.p.rapidapi.com/v1/hotels/description?";
 
-let destLatitude;//asta
-let destLongitude;//asta
+// Base url for accuWeather api
+var baseURL_citySearch = "http://dataservice.accuweather.com/locations/v1/cities/search?";
+var baseURL_currentWeather = "http://dataservice.accuweather.com/currentconditions/v1/";
+var apiKey_weather = "pCT63hS0FIm6KJ7Sfo8dGQIulm2tBhKA";
 
 
 const settings = {
@@ -20,40 +26,11 @@ const settings = {
 	}
 };
 
-//Search hotels
-function searchHotel(event) {
-    event.preventDefault();
-    des = $("#city-name").val().trim();
-    getDestInfo();
-}
-
-//Get destination info
-function getDestInfo() {
-    var queryParams_desInfo = {
-        name: des,
-        locale: "en-gb"
-    };
-    settings.url = baseURL_desInfo + $.param(queryParams_desInfo);
-    $.ajax(settings).done(function (response) {
-       var destInfo ={
-            "dest_id": response[0].dest_id,
-            "dest_type": response[0].dest_type,
-            "longitude": response[0].longitude,
-            "latitude": response[0].latitude
-        };
-        console.log("response", response);
-        console.log("destInfo", destInfo);
-        getHotels(destInfo);
-
-        destLatitude = destInfo.latitude; //asta start
-        destLongitude = destInfo.longitude;
-        localStorage.setItem(`currentLat`, destLatitude);
-        localStorage.setItem(`currentLon`, destLongitude);
-
+//a
         const settingsCities = {
             async: true,
             crossDomain: true,
-            url: 'https://wft-geo-db.p.rapidapi.com/v1/geo/locations/' + destLatitude + destLongitude + '/nearbyCities?radius=100',
+            url: 'https://wft-geo-db.p.rapidapi.com/v1/geo/locations/' + citiesLatitude + citiesLongitude + '/nearbyCities?radius=100',
             method: 'GET',
             headers: {
                 'content-type': 'application/octet-stream',
@@ -61,20 +38,72 @@ function getDestInfo() {
                 'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
             }
         };
-        
-        function getNearLocation(){
-            $.ajax(settingsCities).done(function (response) {
-                console.log(`settingsCities url: ${settingsCities.url}`);
-                let firstCity = response[0].city;
-                console.log(`I am response from getNearLocation():${firstCity}`);
-            });
-        }
 
-        getNearLocation()
-        //asta end
+//a
 
+
+$(document).ready(function () {
+    
+    init();
+
+    $("#history").on("click", "button", function () {
+        des = $(this).attr("data-city");
+        $("#city-name").val(des);
+        getDestInfo();
+        getLocationKey();
+    });
+
+});
+
+//Search hotels
+function searchHotel(event) {
+    event.preventDefault();
+    des = $("#city-name").val().trim().toLowerCase();
+    getDestInfo();
+    getLocationKey();
+}
+
+//Get destination info
+function getDestInfo() {
+    showLoadingSpinner();
+    var queryParams_desInfo = {
+        name: des,
+        locale: "en-gb"
+    };
+    settings.url = baseURL_desInfo + $.param(queryParams_desInfo);
+    $.ajax(settings).done(function (response) {
+        var destInfo ={
+            "dest_id": response[0].dest_id,
+            "dest_type": response[0].dest_type,
+            "longitude": response[0].longitude,
+            "latitude": response[0].latitude
+        };
+        citiesLatitude = destInfo.latitude;//a
+        citiesLongitude = destInfo.longitude;//a
+        getHotels(destInfo);
+        getNearLocation();
     });
 }
+
+console.log("Latitude: " + citiesLatitude);//a
+console.log("Longitude: " + citiesLongitude);//a
+//a start
+
+function getNearLocation(){
+    $.ajax(settingsCities).done(function (response) {
+        
+        console.log(`settingsCities url: ${settingsCities.url}`);
+        var citiesInfo = {
+            "city": response.data[0].name
+        }
+        var firstCity = citiesInfo.name
+        console.log(`I am response from getNearLocation():${firstCity}`);
+    });
+}
+
+//a end
+
+
 
 
 // Get hotels Info
@@ -92,7 +121,6 @@ function getHotels(desInfo) {
     queryParams_hotels.dest_id = desInfo.dest_id;
     queryParams_hotels.dest_type = desInfo.dest_type;
     settings.url = baseURL_hotels + $.param(queryParams_hotels);
-    console.log(settings.url);
     hotels = [];
     $.ajax(settings).done(function (response) {
         for (var i = 0; i < 9; i++) {// get the first 9 hotels info
@@ -111,8 +139,9 @@ function getHotels(desInfo) {
             hotels.push(hotel);
         }
         displayHotels();
+        
     });
-    
+
 }
 
 //Display hotels
@@ -141,6 +170,13 @@ function displayHotels() {
     }
     displayCityName();
     $("#hotels").html(hotel_list);
+    if (!searched_cities.includes(des)) {
+        des = des.toLowerCase();
+        searched_cities.push(des);
+        localStorage.setItem("history",JSON.stringify(searched_cities));
+        displaySearchHistory();
+    }
+    removeLoadingSpinner();
 }
 
 //Display ciity name
@@ -174,7 +210,6 @@ function getHotelDesc(hotel_index) {
     };
     settings.url = baseURL_description + $.param(queryParams_description);
     $.ajax(settings).done(function (response) {
-        console.log(response.description);
         popup_hotel_details(hotel_index, response.description);
     });
 }
@@ -188,12 +223,77 @@ function displayStars(stars) {
     return star_list;
 }
 
+// Init
+function init() {
+    // Set dafault search city and  date range
+    des = "London";
+    des = des.toLowerCase();
+    arrival_date = moment(defaut_startDate, 'DD/MM/YYYY').format("YYYY-MM-DD");
+    departure_date = moment(default_endDate, 'DD/MM/YYYY').format("YYYY-MM-DD");
+    $("#city-name").val(des);
+    getDestInfo();
+    getLocationKey();
+    // Get searched cities history from local storage if available
+   if (localStorage.getItem("history") == null) {
+       searched_cities = [];
+   } else {
+       searched_cities = JSON.parse(localStorage.getItem("history"));
+       displaySearchHistory();
+   }
+}
+   
+//Display search history
+function displaySearchHistory() {
+    $("#history").empty(); // Clear the current displayed history
+    for (var i = 0; i < searched_cities.length; i++) {
+        var history ="<button class=\"btn\" data-city=\""+searched_cities[i]+"\">"+searched_cities[i]+"</button>";
+        $("#history").append(history);
+    }   
+}
 
+//Display loading spinner
+function showLoadingSpinner() {
+    var spinner ="";
+    spinner += '<div class="overlay">';
+    spinner += '<div class="loading_spinner"></div>';
+    spinner += '</div>';
+    $("body").append(spinner);
+    $(".overlay").fadeIn();
+}
 
+// Remove loading spinner
+function removeLoadingSpinner() {
+    $(".overlay").fadeOut().remove();
+}
 
+// Get location key for the searched city
+function getLocationKey() {
+    var queryParams = {
+        apikey: apiKey_weather,
+        q: des
+    };
+    var queryURL_city = baseURL_citySearch+$.param(queryParams);
+    $.ajax({
+        url: queryURL_city,
+        method: "GET"
+    }).then(function(response) {
+        getWeatherTemperature(response[0].Key);
+    });
+}
 
-
-
-
-
-
+//Get current weather temperature of the searched city
+function getWeatherTemperature(locKey){
+    var queryParams = {
+        apikey: apiKey_weather
+    };
+    var queryURL_currentWeather = baseURL_currentWeather+locKey+"?"+$.param(queryParams);
+    $.ajax({
+        url: queryURL_currentWeather,
+        method: "GET"
+    }).then(function(weatherInfo) {
+        var temp = weatherInfo[0].Temperature.Metric.Value;
+        var iconNum = weatherInfo[0].WeatherIcon;
+        $("#temp").text(temp+"°C");
+        $("#cond").html('<img src="images/weather_icons/w'+iconNum+'.png">');
+    });
+}
