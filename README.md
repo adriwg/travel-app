@@ -35,7 +35,7 @@ One hotel card per horizontal line is displayed on mobile screen:
 
 - Javascript
 - jQuery
-- [Booking API](https://rapidapi.com/apidojo/api/booking)
+- [Booking API](https://rapidapi.com/tipsters/api/booking-com)
 - [Weather API](https://developer.accuweather.com/)
 - [GeoDB Cities API](https://rapidapi.com/wirefreethought/api/geodb-cities) 
 - JavaScript [date range picker](https://www.daterangepicker.com/#:~:text=Originally%20created%20for%20reports%20at,like%20%22Last%2030%20Days%22.)
