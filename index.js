@@ -12,6 +12,9 @@ var baseURL_citySearch = "https://dataservice.accuweather.com/locations/v1/citie
 var baseURL_currentWeather = "https://dataservice.accuweather.com/currentconditions/v1/";
 var apiKey_weather = "pCT63hS0FIm6KJ7Sfo8dGQIulm2tBhKA";
 
+// Base url for  geoDB api
+var baseURL_nearbyCities = "https://wft-geo-db.p.rapidapi.com/v1/geo/locations/";
+
 
 const settings = {
 	"async": true,
@@ -19,8 +22,19 @@ const settings = {
 	"method": "GET",
 	"headers": {
         'content-type': 'application/octet-stream',
-		"X-RapidAPI-Key": "ccdcd724a8msh75b86de5a1b83f5p14d1ddjsn3fdfe60e540c",
+		"X-RapidAPI-Key": "177596f740msh5e18310b8c4381cp186568jsne4cce452f7d0",
 		"X-RapidAPI-Host": "booking-com.p.rapidapi.com"
+	}
+};
+
+const settings_nearby_cities = {
+	"async": true,
+	"crossDomain": true,
+	"method": "GET",
+	"headers": {
+        'content-type': 'application/octet-stream',
+		"X-RapidAPI-Key": "177596f740msh5e18310b8c4381cp186568jsne4cce452f7d0",
+		"X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com"
 	}
 };
 
@@ -61,6 +75,7 @@ function getDestInfo() {
             "latitude": response[0].latitude
         };
         getHotels(destInfo);
+        getNearbyCities(destInfo.latitude, destInfo.longitude);
     });
     
 }
@@ -256,3 +271,33 @@ function getWeatherTemperature(locKey){
         $("#cond").html('<img src="images/weather_icons/w'+iconNum+'.png">');
     });
 }
+
+// Get nearby cities
+function getNearbyCities(lat, lon) {
+    var queryParams = {
+        radius: 100,
+    };
+    settings_nearby_cities.url = baseURL_nearbyCities+lat+lon+"/nearbyCities?"+$.param(queryParams);
+    $.ajax(settings_nearby_cities).done(function (response) {
+        $("#cities_list").empty();
+        for (var i = 0; i < response.data.length; i++) {    
+            $("#cities_list").append(displayNearbyCities(response.data[i].name, response.data[i].distance));
+        }
+    });  
+}
+
+// Display nearby cities
+function displayNearbyCities(name, distance) {
+   var nearby_list = "";
+   nearby_list += '<li>';
+   nearby_list += '<div class="name_wrapper">';
+   nearby_list += '<i class="fa-solid fa-landmark-dome icn_place"></i>';
+   nearby_list += '<div class="nearby_city_name">'+name+'</div>';
+   nearby_list += '</div>';
+   nearby_list += '<div class="city_info">';
+   nearby_list += '<span>Distance: '+distance+' km</span>';
+   nearby_list += '</div>';
+   nearby_list += '</li>';
+   return nearby_list;
+}
+

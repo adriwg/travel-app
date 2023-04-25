@@ -1,7 +1,7 @@
 :root {
     --card_bdr_radius: 15px;
     --rating_bg_color: #f1a52a;
-    --hotel_title_color: #1f315e;
+    --hotel_title_color: #253b73;
     --location_color: #3761c9;
     --dark-grey: #8e949a; 
     --app_name_color: white; 
@@ -81,16 +81,7 @@ h2 {
 }
 
 #city-name {
-    position: relative;
     text-transform: capitalize;
-}
-
-#city-name:before{
-        position: absolute;
-        font-family: 'FontAwesome';
-        top: 0;
-        left: 10px;
-        content: "\f005";
 }
 
 #recent-search{
@@ -413,7 +404,6 @@ h2 {
     font-size: 16px;
     padding: 22px 20px;
     border-radius: 60px;
-
 }
 
 
@@ -448,6 +438,50 @@ h2 {
     background-color: #88929f;
     color: #fff;
 }
+
+/*** Nearby cities ***/
+#cities_list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#cities_list li {
+    padding: 10px 0px;
+}
+
+.name_wrapper{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nearby_city_name {
+    font-size: 18px;
+    margin-left: 5px;
+    font-weight: 500;
+    color: var(--hotel_title_color);
+}
+
+.icn_place {
+ color: var(--dark-grey);
+}
+
+.city_info {
+    margin-top: -4px;
+}
+
+.city_info span{
+    display:inline-block;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.city_info span:last-child{
+    margin-right: 0;
+}
+
+
 
 /*** Loading Spinner  ***/
 .overlay{
