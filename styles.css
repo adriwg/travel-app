@@ -28,7 +28,8 @@ body{
 }
 
 .appTitle {
-    margin-bottom: 50px;
+    margin-top: 40px;
+    margin-bottom: 10px;
 }
 
 
@@ -48,6 +49,11 @@ h1 {
 
 h1, h1+p, h1+p+p{
     color: var(--app_name_color);
+}
+
+h4 {
+    color: var(--app_name_color);  
+    margin-bottom: 2.5rem;
 }
 
 h1+p {
@@ -508,7 +514,7 @@ h2 {
 /*** Footer  ***/
 footer {
     margin-top: 30px;
-    padding: 20px 30px 30px 30px !important;
+    padding: 30px 30px 30px 30px !important;
     background-color: var(--footer-color);
 }
 
@@ -528,3 +534,12 @@ footer a {
         order: 1;
     }
 }
+
+@media screen and (max-width: 576px){
+    .input_wrapper {
+        flex-direction: column; 
+    }
+    
+}
+
+
