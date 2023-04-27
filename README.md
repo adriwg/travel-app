@@ -8,7 +8,7 @@ The landing page shows default city London and available hotels, with default da
 
 ![default landing page](images/landing.jpg)
 
-When user enters their desired destination city and travel dates, clicks search button, the hotels are displayed in desired destination: 
+When user enters their desired destination city and travel dates, clicks search button, the hotels are displayed for desired destination: 
 
 ![another destination](images/other_city.jpg)
 
@@ -28,7 +28,7 @@ One hotel card per horizontal line is displayed on mobile screen:
 
 ![mobile screen](images/mobileScreen.jpg)
 
-
+Recent search and Cities nearby sections are moved to the bottom of the page.
 
 
 ## Languages/libraries/API's used
