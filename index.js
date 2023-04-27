@@ -22,7 +22,7 @@ const settings = {
 	"method": "GET",
 	"headers": {
         'content-type': 'application/octet-stream',
-		"X-RapidAPI-Key": "177596f740msh5e18310b8c4381cp186568jsne4cce452f7d0",
+		"X-RapidAPI-Key": "2c5ca09627msh7044f8013a50108p143190jsn978372ea7d46",
 		"X-RapidAPI-Host": "booking-com.p.rapidapi.com"
 	}
 };
@@ -33,7 +33,7 @@ const settings_nearby_cities = {
 	"method": "GET",
 	"headers": {
         'content-type': 'application/octet-stream',
-		"X-RapidAPI-Key": "177596f740msh5e18310b8c4381cp186568jsne4cce452f7d0",
+		"X-RapidAPI-Key": "2c5ca09627msh7044f8013a50108p143190jsn978372ea7d46",
 		"X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com"
 	}
 };
