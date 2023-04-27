@@ -45,7 +45,7 @@ Recent search and Cities nearby sections are moved to the bottom of the page.
   
 ## Installation
 
-There is no installation needed, please view deployed app [here](https://astarem.github.io/travel-app/)
+There is no installation needed, please view deployed app [here](https://adriwg.github.io/travel-app/)
 
 ## Usage
 
