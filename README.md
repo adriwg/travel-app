@@ -1,8 +1,8 @@
-# Find a hotel app - group project
+# StayExporer app - group project
 
 ## Description
 
-We have created a "Find a hotel" app single page app. When a user wants to travel anywhere in the world, they can use this app to find out what hotels are available in the area.
+We have created a "StayExplorer" single page app. When a user wants to travel anywhere in the world, they can use this app to find out what hotels are available in the area.
   
 The landing page shows default city London and available hotels, with default dates - starting today +5 days: 
 
